@@ -1,9 +1,37 @@
 # lib/nami_kana/cli.rb
 
 require 'thor'
+require_relative "menu/hiragana"
 
 module NamiKana
   class CLI < Thor
+
+    desc "menu", "Show main menu"
+    def menu
+      main_menu
+    end
+
+    no_commands do
+      desc "main_menu", "Show main menu"
+      def main_menu
+        puts "Print pretty cool ASCII"
+        puts "Please select an option:"
+        puts "1. Practice Katakana"
+        puts "2. Practice Hiragana"
+        puts " — — — — — — — — — — — — — — — — — "
+        input = $stdin.gets.strip
+        case input
+        when "1"
+          puts "You chose Katakana"
+        when "2"
+          puts "You chose Hiragana222"
+          NamiKana::Menu.hiragana
+        else
+          puts "Invalid option"
+        end
+      end
+    end
+
     desc "learn TYPE", "Learn kana: hiragana or katakana"
     def learn(type = "hiragana")
       puts "📚 Learning #{type.capitalize}!"
